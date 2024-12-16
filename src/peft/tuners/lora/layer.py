@@ -243,6 +243,8 @@ class LoraLayer(BaseTunerLayer):
 
     def pissa_init(self, adapter_name, init_lora_weights):
         weight = self.get_base_layer().weight
+        print("weight device", weight.device)
+        print("weight dtype", weight.dtype)
         dtype = weight.dtype
         if dtype not in [torch.float32, torch.float16, torch.bfloat16]:
             raise TypeError(
@@ -271,6 +273,9 @@ class LoraLayer(BaseTunerLayer):
 
         lora_A = torch.diag(torch.sqrt(Sr)) @ Uhr
         lora_B = Vr @ torch.diag(torch.sqrt(Sr))
+        print("Sr device:", Sr.device)
+        print("Uhr device:", Uhr.device)
+        print("Vr device:", Vr.device)
         print("------")
         print("lora A shape", lora_A.shape)
         print("lora A device", lora_A.device)
